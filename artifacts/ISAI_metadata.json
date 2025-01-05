@@ -195,6 +195,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "ROYALTY_BASIS_POINTS",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -921,11 +934,11 @@
 			]
 		},
 		"ISAI.sol": {
-			"keccak256": "0x6f2da2fb4f3e86f4a57cc46e7b61ccb496d2f54e694ec499c56e418e6a368748",
+			"keccak256": "0xbb3a0dbf2635bd75768ecee5ccde65b7a04867c8dc5d879b48409b724164f74f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://086d1f89b34d638c73bf617b492dbb739b5c798d85bd0b31f811eb3136625905",
-				"dweb:/ipfs/QmSWehvQsgRXodV7sbhbT7i6f9LSvJw5wepCaZPWN5XKrY"
+				"bzz-raw://2625adca67f1a477d45f6d13453bc9c4f0c0b59eeabec17870872ca6fd4eebf5",
+				"dweb:/ipfs/QmXvgUXnphj19TsEqu2LQAJ7dFkCsNp3gev7orWRjmsfCu"
 			]
 		},
 		"Ownable.sol": {

@@ -9,9 +9,10 @@ import "./Ownable.sol";
 import "./Address.sol";
 import "./SafeMath.sol";
 import "./ReentrancyGuard.sol";
+import "./ERC721Royalty.sol";
 
 
-contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, ReentrancyGuard {
+contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, ReentrancyGuard, ERC721Royalty {
 
     using Address for address payable;
     using SafeMath for uint256;
@@ -21,7 +22,7 @@ contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Reentrancy
     uint256 public constant AMOUNT_RESERVED = 120;
     uint256 public constant ISAI_PRICE = 9E16; // 0.09ETH
     uint256 public constant RENAME_PRICE = 9E15; // 0.009ETH
-
+    uint256 public constant ROYALTY_BASIS_POINTS = 350;  // 3.5%
 
     enum State {
         Setup,
@@ -70,6 +71,10 @@ contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Reentrancy
   
     constructor() ERC721("ISAI","ISAI") {
         _state = State.Setup;
+    }
+
+    function _setTokenRoyalty(uint256 tokenId, address receiver, uint96 feeNumerator) internal virtual override { 
+        super._setTokenRoyalty(tokenId, receiver, feeNumerator); 
     }
 
     function setImmutableIPFSBucket(string memory immutableIPFSBucket_) public onlyOwner {
@@ -150,7 +155,7 @@ contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Reentrancy
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721Enumerable)
+        override(ERC721, ERC721Enumerable, ERC721Royalty)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
@@ -185,6 +190,7 @@ contract ISAI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Reentrancy
 
         for(uint i = 0; i < amountOfIsais; i++) {
             _safeMint(human, _nextTokenId); 
+            _setTokenRoyalty(_nextTokenId, msg.sender, uint96(ROYALTY_BASIS_POINTS));
             _nextTokenId = _nextTokenId.add(1).mod(MAX_ISAI); 
         }
 
